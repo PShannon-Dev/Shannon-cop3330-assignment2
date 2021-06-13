@@ -1,21 +1,51 @@
 package ex26;
+
+import java.util.Scanner;
+
 /*
-Functions help you abstract away complex operations, but they also help you build reusable components.
+It can take a lot longer to pay off your credit card balance than you might realize. And the formula for figuring that out isn’t pretty. Hiding the formula’s complexity with a function can help you keep your code organized.
 
-Create a program that determines the complexity of a given password based on these rules:
+Write a program that will help you determine how many months it will take to pay off a credit card balance. The program should ask the user to enter the balance of a credit card, the APR of the card, and their monthly payment. The program should then return the number of months needed (rounded up to the next integer value).
 
-A very weak password contains only numbers and is fewer than eight characters.
-A weak password contains only letters and is fewer than eight characters.
-A strong password contains letters and at least one number and is at least eight characters.
-A very strong password contains letters, numbers, and special characters and is at least eight characters.
+The formula for this is
+
+n = -(1/30) * log(1 + b/p * (1 - (1 + i)^30)) / log(1 + i)
+where
+
+n is the number of months.
+i is the daily rate (APR divided by 365).
+b is the balance.
+p is the monthly payment.
 Example Output
-The password '12345' is a very weak password.
-The password 'abcdef' is a weak password.
-The password 'abc123xyz' is a strong password.
-The password '1337h@xor!' is a very strong password.
+What is your balance? 5000
+What is the APR on the card (as a percent)? 12
+What is the monthly payment you can make? 100
+It will take you 70 months to pay off this card.
 Constraints
-Create a passwordValidator function that takes in the password as its argument and returns a value you can evaluate to determine the password strength. Do not have the function return a string—you may need to support multiple languages in the future.
-Use a single output statement.
+Prompt for the card’s APR. Do the division internally.
+Prompt for the APR as a percentage, not a decimal.
+Use a class called PaymentCalculator with a public method called calculateMonthsUntilPaidOff, which returns the number of months.
+Round fractions of a cent up to the next cent.
  */
 public class App {
+    private static Scanner in = new Scanner(System.in);
+    public static void main(String[] args) {
+        App myApp = new App();
+
+        double balance = myApp.input("What is your balance? ");
+        double apr = myApp.input("What is the APR on the card (as a percent)? ");
+        double payment = myApp.input("What is the monthly payment you can make? ");
+
+        PaymentCalculator myCalc = new PaymentCalculator(balance, payment, apr);
+
+        myApp.output(myCalc);
+    }
+
+    public double input(String prompt){
+        System.out.print(prompt);
+        return in.nextDouble();
+    }
+    public void output(PaymentCalculator calculator){
+        System.out.println(calculator.getMonths());
+    }
 }
