@@ -1,0 +1,12 @@
+@startuml
+class App{
+    +input()
+    +output()
+    }
+
+class calculator{
+    -numbers[]
+    +calc()
+}
+App<|--calculator
+@enduml

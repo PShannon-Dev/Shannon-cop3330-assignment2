@@ -23,6 +23,7 @@ public class App {
         System.out.print(prompt);
         return in.nextDouble();
     }
+
     public void output(PaymentCalculator calculator){
         System.out.println(calculator.getMonths());
     }
