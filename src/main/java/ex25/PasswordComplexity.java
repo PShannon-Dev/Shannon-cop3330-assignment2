@@ -2,7 +2,7 @@ package ex25;
 
 public class PasswordComplexity {
     private String password;
-    private String flag;
+    private int flag;
 
     public PasswordComplexity(String password) {
         this.password = password;
@@ -13,17 +13,41 @@ public class PasswordComplexity {
         return password;
     }
 
-    public String getFlag() {
+    public int getFlag() {
         return flag;
     }
 
-    public String passwordValidator(String password){
+    public int passwordValidator(String password){
+        //making string into array for comparing
+        char[] arr = password.toCharArray();
+        //has booleans to verify criteria
+        boolean hasNumbers = false;
+        boolean hasLetters = false;
+        boolean hasSpecial = false;
 
-        if(password.length() < 8){
-            return  "very weak";
+        for(int i = 0; i < password.length(); i ++){
+            int ascii = arr[i];
+            if((ascii <= 122 && ascii >= 97) || (ascii <= 90 && ascii >= 65))
+                hasLetters = true;
+            else if((ascii <= 38 && ascii >= 33) || (ascii <= 64 && ascii >= 63))
+                hasSpecial = true;
+            else if(ascii <= 57 && ascii >= 48)
+                hasNumbers = true;
         }
 
-        return "no flag";
+        if(password.length() >= 8 && hasNumbers && hasLetters && hasSpecial){
+            return  4;
+        }
+        else if(password.length() >= 8 && hasNumbers && hasLetters){
+            return  3;
+        }
+        else if(password.length() < 8 && hasLetters && !hasNumbers && !hasSpecial){
+            return  2;
+        }
+        else if(password.length() < 8 && hasNumbers && !hasLetters && !hasSpecial)
+            return 1;
+        else
+            return 0;
     }
 
 }

@@ -10,13 +10,27 @@ class PasswordComplexityTest {
     void passwordValidator() {
         PasswordComplexity validate = new PasswordComplexity("1234567");
 
-        assertEquals("very weak",validate.getFlag());
+        assertEquals(1,validate.getFlag());
     }
 
     @Test
     void passwordValidator_only_letters(){
-        PasswordComplexity validate = new PasswordComplexity("1234567");
+        PasswordComplexity validate = new PasswordComplexity("abc");
 
-        assertEquals("weak",validate.getFlag());
+        assertEquals(2,validate.getFlag());
+    }
+
+    @Test
+    void passwordValidator_ninechars_letters_numbers(){
+        PasswordComplexity validate = new PasswordComplexity("password1");
+
+        assertEquals(3,validate.getFlag());
+    }
+
+    @Test
+    void specials_numbers_letters(){
+        PasswordComplexity validate = new PasswordComplexity("John123?@");
+
+        assertEquals(4,validate.getFlag());
     }
 }
