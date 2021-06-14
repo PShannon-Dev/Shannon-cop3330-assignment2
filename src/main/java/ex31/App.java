@@ -24,6 +24,20 @@ public class App {
 
     public int input(String prompt){
         System.out.print(prompt);
-        return in.nextInt();
+        boolean valid = false;
+        int value = 0;
+        while(!valid){
+            try{
+                value = in.nextInt();
+                valid = true;
+            }
+            catch (Exception e)
+            {
+                System.out.println("Please enter an integer...");
+                //clear buffer
+                in.nextLine();
+            }
+        }
+        return value;
     }
 }
