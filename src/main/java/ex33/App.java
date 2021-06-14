@@ -1,16 +1,29 @@
 package ex33;
 /*
-Arrays are great for storing possible responses from a program. If you combine that with a random number generator, you can pick a random entry from this list, which works great for games.
-
-Create a Magic 8 Ball game that prompts for a question and then displays either "Yes," "No," "Maybe," or "Ask again later."
-
-Example Output
-What's your question?
-> Will I be rich and famous?
-
-Ask again later.
-Constraint
-The value should be chosen randomly using a pseudo random number generator. Store the possible choices in a list and select one at random.
+ *  UCF COP3330 Summer 2021 Assignment 2 Solution
+ *  Copyright 2021 Paul Shannon
  */
+import java.util.Scanner;
+
+
 public class App {
+    private static Scanner in = new Scanner(System.in);
+    public static void main(String[] args) {
+        App myApp = new App();
+        MagicBall ball = new MagicBall();
+        String question = myApp.input();
+
+        myApp.output(ball);
+
+    }
+
+    public String input(){
+        System.out.print("What's your question? ");
+        return in.nextLine();
+    }
+
+    public void output(MagicBall instance){
+        String output = instance.randomResponse();
+        System.out.println(output);
+    }
 }
